@@ -1,0 +1,4 @@
+google.com
+example.local
+8.8.8.8
+192.0.2.123
