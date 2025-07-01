@@ -378,6 +378,10 @@ Issues & PRs welcome! Please include:
 
 ---
 
+## Disclaimer
+
+This project is provided as is without any warranty. I hold no liability for the accuracy of the information produced by these scripts.
+
 ## Licence
 
 This is a **personal project** created and maintained by Ross Wynne.
