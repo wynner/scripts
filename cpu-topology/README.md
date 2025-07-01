@@ -37,4 +37,4 @@ Specify `-OutputPath <file.csv>` to export the results.
 
 ## Disclaimer
 
-This script is intended for VMware administrators to **view** existing CPU topology settings. Always consider the application requirements before changing a VM's configuration.
+This script is intended for VMware administrators to **view** existing CPU topology settings. Always consider the application requirements before changing a VM's configuration. I hold no liability for the accuracy of the information produced by this script.

@@ -78,6 +78,8 @@ The script expects VCD logs in the standard format:
 IP_ADDRESS - - [DD/MMM/YYYY:HH:MM:SS +ZZZZ] "REQUEST" STATUS_CODE
 ```
 
-## License
+## Disclaimer
 
-This script is provided as is without any warranty. Use at your own risk.
+This script is provided as is without any warranty. Use at your own risk. I hold no liability for the accuracy of the information produced by this tool.
+
+## License
