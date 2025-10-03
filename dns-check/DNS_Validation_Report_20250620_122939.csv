@@ -1,0 +1,4 @@
+"Input","Type","Result","Status"
+"google.com","FQDN","216.58.208.238","Forward OK"
+"1.1.1.1","IP","one.one.one.one","Reverse OK"
+"example123hdfhsuehw.com","FQDN",,"No A Record"
