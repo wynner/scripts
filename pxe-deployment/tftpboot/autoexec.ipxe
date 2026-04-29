@@ -1,0 +1,84 @@
+#!ipxe
+
+dhcp  # obtain network parameters (IP, gateway, DNS) via DHCP before doing anything else
+
+# Always capture the MAC (in lowercase)
+# rawmac will usually be in colon form (e.g. “ab:cd:ef:01:23:45”), change based on your hardware's PXE capablity
+set rawmac ${net0/mac}
+# Replace colons with hyphens to form the “mac” variable (e.g. “ab-cd-ef-01-23-45”)
+set mac ${rawmac/:/-}
+
+goto menu  # jump to the menu label to show boot options
+
+:menu
+menu "Wynner PXE Boot Imaging Menu"  # define the boot menu title
+
+# menu items: “item <label> <description>”
+item --gap -- ------------------- Manual Installs -------------------  # visual separator
+item esx803      ESXi 8.0.3.0 (NVMe, Mem & ESA)
+item esx9000     ESXi 9.0.0.0 (NVMe, Mem & ESA)
+item esx900100   ESXi 9.0.0.100 (NVMe, Mem & ESA)
+item esx9010     ESXi 9.0.1.0 (NVMe, Mem & ESA)
+item shell       iPXE shell  # special menu entry to drop into an interactive shell
+
+# help text: “help <label> <description>” shows when that entry is highlighted
+help esx803      "For VCF 5.2.0 Builds"
+help esx9000     "For VCF 9.0.0.0 Builds"
+help esx900100   "For VCF 9.0.0.100 Builds"
+help esx9010     "For VCF 9.0.1.0 Builds"
+
+# choose: pick one of the items, with a default and timeout (in ms)
+# If user doesn’t choose in time, `esx900100` is auto-selected.
+choose --default esx900100 --timeout 10000 target && goto ${target}
+
+:shell
+# If “shell” was selected, drop into iPXE shell
+shell
+goto menu  # after exiting shell, go back to menu
+
+# ===== ESXi 8 Section =====
+:esx803
+# set a version variable
+set ver 8.0.3.0
+goto esx8_common
+
+:esx8_common
+# Build base URL for ESXi files for version 8.x
+set base http://172.16.0.11/esxi/${ver}
+# Boot configuration file path
+set bootcfg ${base}/boot.cfg
+# Kickstart (automated install) URL: pass MAC and version so server can produce per-host settings
+set ks http://172.16.0.11/kickstart/gen.php?mac=${mac}&ver=${ver}
+goto esx8_go
+
+:esx8_go
+# Load the kernel (EFI) with its configuration
+kernel ${base}/mboot.efi -c ${bootcfg}
+# Add arguments: point to the same config and pass ks= (kickstart URL)
+imgargs mboot.efi -c ${bootcfg} ks=${ks}
+boot  # finally boot into that image
+
+# ===== ESXi 9 Section =====
+:esx9000
+set ver9 9.0.0.0
+goto esx9_common
+
+:esx900100
+set ver9 9.0.0.100
+goto esx9_common
+
+:esx9010
+set ver9 9.0.1.0
+goto esx9_common
+
+:esx9_common
+# For ESXi 9.x builds, same logic but using “ver9” and base9
+set base9 http://172.16.0.11/esxi/${ver9}
+set bootcfg9 ${base9}/boot.cfg
+set ks http://172.16.0.11/kickstart/gen.php?mac=${mac}&ver=${ver9}
+goto esx9_go
+
+:esx9_go
+kernel ${base9}/mboot.efi -c ${bootcfg9}
+imgargs mboot.efi -c ${bootcfg9} ks=${ks}
+boot

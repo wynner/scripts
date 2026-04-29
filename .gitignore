@@ -1,1 +1,19 @@
 .DS_Store
+parse_vcd_requests_log/__pycache__/
+
+# PXE deployment runtime binaries and copied ESXi installer payloads.
+# Keep only version-folder README files and boot.cfg templates tracked.
+pxe-deployment/tftpboot/*.efi
+pxe-deployment/esxi/*/*
+!pxe-deployment/esxi/*/README.md
+!pxe-deployment/esxi/*/boot.cfg
+
+# Misplaced or local ESXi ISO payload copies.
+pxe-deployment/kickstart/esx*/
+pxe-deployment/kickstart/*.efi
+
+# Local/generated kickstart outputs and old working copies.
+pxe-deployment/kickstart/*.cfg
+pxe-deployment/kickstart/ms-a2-bios-settings.txt
+pxe-deployment/tftpboot/menu.ipxe
+pxe-deployment/**/*copy*
