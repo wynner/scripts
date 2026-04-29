@@ -1,6 +1,6 @@
 # Scripts Overview
 
-This repository contains a collection of PowerShell and Python utilities. Each script resides in its own folder with a detailed README explaining usage and dependencies.
+This repository contains a collection of PowerShell, Python, PHP, and PXE/iPXE utilities. Each script resides in its own folder with a detailed README explaining usage and dependencies.
 
 ## Directory Summary
 
@@ -11,7 +11,9 @@ This repository contains a collection of PowerShell and Python utilities. Each s
 - **dns-check** – Validates hostnames or IPs against a DNS server using `nslookup`.
 - **evc-mode** – Lists VMs that may block enabling EVC mode in a cluster.
 - **parse_vcd_requests_log** – Python parser for VMware Cloud Director request logs.
-- **share** – vSphere health check tools for analysing RVTools exports.
+- **pxe-deployment** – iPXE and kickstart framework for imaging ESXi hosts from customer-supplied ESXi media.
+- **sanitize-rvtools** – Sanitizes RVTools `.xlsx` exports and can restore them using a protected JSON mapping file.
+- **share** – RVTools assessment project in development.
 - **tpm-backup** – Backup TPM recovery keys from ESXi hosts.
 
 Each folder contains the script file and a README describing required modules and how to run it.
