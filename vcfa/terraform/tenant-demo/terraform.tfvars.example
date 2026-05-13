@@ -1,0 +1,54 @@
+vcfa_url                  = "https://vcfa.domain.com"
+vcfa_org                  = "System"
+vcfa_allow_unverified_ssl = true
+
+# Supply credentials through environment variables, not this publishable file:
+#   TF_VAR_vcfa_user
+#   TF_VAR_vcfa_password
+#   TF_VAR_tenant_admin_password
+
+tenant = {
+  name                  = "demo-tf"
+  display_name          = "demo-tf"
+  description           = "VCFA Terraform demo tenant, partially recreating the VCD tenant demo foundation"
+  networking_log_name   = "demotf"
+  regional_network_name = "demo-tf-rns-main"
+  admin_username        = "demo-tf-admin"
+}
+
+provider_infrastructure = {
+  region_name           = "example-region"
+  region_zone_name      = "example-zone"
+  vcenter_name          = "vcenter.domain.com"
+  supervisor_name       = "example-supervisor"
+  provider_gateway_name = "example-provider-gateway"
+  edge_cluster_name     = "example-edge-cluster"
+}
+
+region_quota = {
+  cpu_limit_mhz          = 20000
+  cpu_reservation_mhz    = 0
+  memory_limit_mib       = 20480
+  memory_reservation_mib = 0
+
+  vm_class_names = [
+    "standard-nano",
+    "standard-micro",
+    "standard-small",
+  ]
+
+  storage_policies = {
+    Standard = {
+      limit_mib = 102400
+    }
+    Performance = {
+      limit_mib = 102400
+    }
+  }
+}
+
+application = {
+  content_library_name            = "demo-tf-application"
+  content_library_description     = "demo-tf application content library"
+  content_library_storage_classes = ["Standard"]
+}

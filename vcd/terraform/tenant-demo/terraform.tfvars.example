@@ -1,0 +1,101 @@
+vcd_url      = "https://vcd.domain.com/api"
+vcd_user     = "administrator"
+vcd_password = ""
+
+provider_vdc_name     = "Provider VDC Name"
+network_pool_name     = "Network Pool Name"
+provider_gateway_name = "Provider Gateway Name"
+ip_space_name         = "IP Space Name"
+edge_cluster_name     = "Edge Cluster Name"
+vm_sizing_policy_name = "VM Sizing Policy Name"
+
+tenant = {
+  org_name      = "DemoTenant"
+  org_full_name = "Demo Application Tenant"
+  org_vdc_name  = "demo-production"
+  edge_name     = "edge-demo-az1"
+  network_name  = "demo-network"
+  admin_user    = "demo-admin"
+  admin_email   = "admin@domain.com"
+}
+
+tenant_admin_password = ""
+
+vdc_compute = {
+  cpu_allocated_mhz = 100000
+  cpu_limit_mhz     = 100000
+  cpu_speed_mhz     = 2000
+  memory_allocated  = 262144
+  memory_limit      = 262144
+}
+
+storage_profiles = [
+  {
+    name    = "Storage Policy Name"
+    limit   = 0
+    default = true
+  }
+]
+
+routed_network = {
+  gateway       = "192.168.35.1"
+  prefix_length = 24
+  cidr          = "192.168.35.0/24"
+  pool_start    = "192.168.35.200"
+  pool_end      = "192.168.35.219"
+  dns1          = "192.0.2.53"
+  dns2          = "192.0.2.54"
+  dns_suffix    = "domain.com"
+}
+
+application = {
+  catalog_name               = "demo-catalog"
+  catalog_description        = "Dummy database VM demo catalog"
+  named_disk_name            = "demo-db-shared-disk"
+  named_disk_size_mb         = 1024
+  named_disk_storage_profile = "Storage Policy Name"
+  vm_storage_profile         = "Storage Policy Name"
+  vm_names                   = ["db01", "db02"]
+  vm_os_type                 = "otherGuest64"
+  vm_hardware_version        = "vmx-19"
+  vm_cpus                    = 1
+  vm_cpu_cores               = 1
+  vm_memory_mb               = 1024
+  vm_internal_disk_size_mb   = 10240
+  vm_internal_disk_bus_type  = "nvme"
+  vm_internal_disk_bus       = 0
+  vm_internal_disk_unit      = 0
+  power_on                   = true
+}
+
+security = {
+  demo_security_group_name   = "Demo VM Group"
+  trusted_admin_sources      = ["203.0.113.10/32"]
+  lab_dns_servers            = ["192.0.2.53", "192.0.2.54"]
+  lab_ntp_servers            = ["192.0.2.53", "192.0.2.54"]
+}
+
+tenant_ldap_users = {
+  labadmin = {
+    role          = "Organization Administrator"
+    full_name     = "Lab Administrator"
+    email_address = "labadmin@domain.com"
+  }
+  appoperator = {
+    role          = "vApp Author"
+    full_name     = "Application Operator"
+    email_address = "appoperator@domain.com"
+  }
+  appviewer = {
+    role          = "Catalog Author"
+    full_name     = "Application Viewer"
+    email_address = "appviewer@domain.com"
+  }
+}
+
+common_metadata = {
+  managed-by  = "terraform"
+  purpose     = "vcd-tenant-demo"
+  environment = "lab"
+  owner       = "platform-team"
+}
